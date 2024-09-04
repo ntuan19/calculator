@@ -7,6 +7,9 @@ export default function TipCalculator() {
   const [numberPeopleTip,setNumberPeopleTip] = useState(1)
   const [totalTip,setTotalTip] = useState(bill* tipPercentage/100)
   const [tipPerPerson,setTipPerPerson] = useState(totalTip/numberPeopleTip)
+
+  // So the useEffect is used to reflect the changes only when there is change in bill, tipPercentage or number people tiped. 
+  // in addition, useEffect has a function constHandleChanges that would handle changes from input. 
   useEffect(() => {
     const totalCalculatedTip = bill * tipPercentage/100
     setTotalTip(totalCalculatedTip)
