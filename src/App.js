@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState,useEffect} from 'react';
 
-function App() {
+export default function TipCalculator() {
+  // Write your code here.
+  const[bill, setBill] = useState(50)
+  const [tipPercentage,setTipPercentage] = useState(18)
+  const [numberPeopleTip,setNumberPeopleTip] = useState(1)
+  const [totalTip,setTotalTip] = useState(bill* tipPercentage/100)
+  const [tipPerPerson,setTipPerPerson] = useState(totalTip/numberPeopleTip)
+  useEffect(() => {
+    const totalCalculatedTip = bill * tipPercentage/100
+    setTotalTip(totalCalculatedTip)
+    setTipPerPerson(totalCalculatedTip/numberPeopleTip)
+  },[bill,tipPercentage,numberPeopleTip])
+
+  const handleChanges = (e,setter) => { 
+    setter(Number(e.target.value));
+  }   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div >
+        <label>
+          Bill: 
+          <input type="number" value={bill} onChange={(e) => handleChanges(e, setBill)} />
+        </label>
+        <label>
+          Tip Percentage: 
+          <input type="number" value={tipPercentage} onChange={(e) => handleChanges(e, setTipPercentage)} />
+        </label>
+        <label>
+          Number of People: 
+          <input type="number" value={numberPeopleTip} onChange={(e) => handleChanges(e, setNumberPeopleTip)} />
+        </label>
+      
+      </div>
+      <p className = 'p'>
+         <p>Total Tip: {totalTip?`$${totalTip.toFixed(2)}` : '-'}</p>
+         <p> Tip Per Person: {tipPerPerson? `$${tipPerPerson.toFixed(2)}` : '-'}</p>
+      </p>
+    </>
   );
 }
-
-export default App;
